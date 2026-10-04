@@ -1,0 +1,290 @@
+[
+  {
+    "canonical_well_id": "15/9-F-12",
+    "well_name": "15/9-F-12 (Volve Active)",
+    "wellbore_name": "15/9-F-12 Main Wellbore",
+    "source_identifier": "NO 15/9-F-12",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-12",
+    "well_name": "15/9-F-12 (Volve Active)",
+    "wellbore_name": "15/9-F-12 Main Wellbore",
+    "source_identifier": "15/9-F-12",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-12",
+    "well_name": "15/9-F-12 (Volve Active)",
+    "wellbore_name": "15/9-F-12 Main Wellbore",
+    "source_identifier": "F-12",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-12",
+    "well_name": "15/9-F-12 (Volve Active)",
+    "wellbore_name": "15/9-F-12 Main Wellbore",
+    "source_identifier": "15/9-F-12 Y1H",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-12",
+    "well_name": "15/9-F-12 (Volve Active)",
+    "wellbore_name": "15/9-F-12 Main Wellbore",
+    "source_identifier": "15/9-F-12 Y2H",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-4",
+    "well_name": "15/9-F-4 (Volve Telemetry Replay)",
+    "wellbore_name": "15/9-F-4 Main Wellbore",
+    "source_identifier": "NO 15/9-F-4",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-4",
+    "well_name": "15/9-F-4 (Volve Telemetry Replay)",
+    "wellbore_name": "15/9-F-4 Main Wellbore",
+    "source_identifier": "15/9-F-4",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-4",
+    "well_name": "15/9-F-4 (Volve Telemetry Replay)",
+    "wellbore_name": "15/9-F-4 Main Wellbore",
+    "source_identifier": "F-4",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-4",
+    "well_name": "15/9-F-4 (Volve Telemetry Replay)",
+    "wellbore_name": "15/9-F-4 Main Wellbore",
+    "source_identifier": "Norway-StatoilHydro-15_9-F-4",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-9",
+    "well_name": "15/9-F-9 (Volve Benchmark Well)",
+    "wellbore_name": "15/9-F-9 Main Wellbore",
+    "source_identifier": "NO 15/9-F-9",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-9",
+    "well_name": "15/9-F-9 (Volve Benchmark Well)",
+    "wellbore_name": "15/9-F-9 Main Wellbore",
+    "source_identifier": "15/9-F-9",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-9",
+    "well_name": "15/9-F-9 (Volve Benchmark Well)",
+    "wellbore_name": "15/9-F-9 Main Wellbore",
+    "source_identifier": "F-9",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-9",
+    "well_name": "15/9-F-9 (Volve Benchmark Well)",
+    "wellbore_name": "15/9-F-9 Main Wellbore",
+    "source_identifier": "NO 15/9-F-9 A",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-9",
+    "well_name": "15/9-F-9 (Volve Benchmark Well)",
+    "wellbore_name": "15/9-F-9 Main Wellbore",
+    "source_identifier": "15/9-F-9 A",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-11",
+    "well_name": "15/9-F-11 (Offset Well)",
+    "wellbore_name": "15/9-F-11 Main Wellbore",
+    "source_identifier": "NO 15/9-F-11",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-11",
+    "well_name": "15/9-F-11 (Offset Well)",
+    "wellbore_name": "15/9-F-11 Main Wellbore",
+    "source_identifier": "15/9-F-11",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-11",
+    "well_name": "15/9-F-11 (Offset Well)",
+    "wellbore_name": "15/9-F-11 Main Wellbore",
+    "source_identifier": "F-11",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-11",
+    "well_name": "15/9-F-11 (Offset Well)",
+    "wellbore_name": "15/9-F-11 Main Wellbore",
+    "source_identifier": "NO 15/9-F-11 A",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-11",
+    "well_name": "15/9-F-11 (Offset Well)",
+    "wellbore_name": "15/9-F-11 Main Wellbore",
+    "source_identifier": "NO 15/9-F-11 B",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-14",
+    "well_name": "15/9-F-14 (Offset Well)",
+    "wellbore_name": "15/9-F-14 Main Wellbore",
+    "source_identifier": "NO 15/9-F-14",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-14",
+    "well_name": "15/9-F-14 (Offset Well)",
+    "wellbore_name": "15/9-F-14 Main Wellbore",
+    "source_identifier": "15/9-F-14",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-14",
+    "well_name": "15/9-F-14 (Offset Well)",
+    "wellbore_name": "15/9-F-14 Main Wellbore",
+    "source_identifier": "F-14",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-15",
+    "well_name": "15/9-F-15 (Offset Well)",
+    "wellbore_name": "15/9-F-15 Main Wellbore",
+    "source_identifier": "NO 15/9-F-15",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-15",
+    "well_name": "15/9-F-15 (Offset Well)",
+    "wellbore_name": "15/9-F-15 Main Wellbore",
+    "source_identifier": "15/9-F-15",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-15",
+    "well_name": "15/9-F-15 (Offset Well)",
+    "wellbore_name": "15/9-F-15 Main Wellbore",
+    "source_identifier": "F-15",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-15",
+    "well_name": "15/9-F-15 (Offset Well)",
+    "wellbore_name": "15/9-F-15 Main Wellbore",
+    "source_identifier": "NO 15/9-F-15 A",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-15",
+    "well_name": "15/9-F-15 (Offset Well)",
+    "wellbore_name": "15/9-F-15 Main Wellbore",
+    "source_identifier": "NO 15/9-F-15 B",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-15",
+    "well_name": "15/9-F-15 (Offset Well)",
+    "wellbore_name": "15/9-F-15 Main Wellbore",
+    "source_identifier": "NO 15/9-F-15 C",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-F-15",
+    "well_name": "15/9-F-15 (Offset Well)",
+    "wellbore_name": "15/9-F-15 Main Wellbore",
+    "source_identifier": "NO 15/9-F-15 D",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-19 A",
+    "well_name": "15/9-19 A (Discovery Well)",
+    "wellbore_name": "15/9-19 A Main Wellbore",
+    "source_identifier": "NO 15/9-19 A",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-19 A",
+    "well_name": "15/9-19 A (Discovery Well)",
+    "wellbore_name": "15/9-19 A Main Wellbore",
+    "source_identifier": "15/9-19 A",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  },
+  {
+    "canonical_well_id": "15/9-19 A",
+    "well_name": "15/9-19 A (Discovery Well)",
+    "wellbore_name": "15/9-19 A Main Wellbore",
+    "source_identifier": "15/9-19A",
+    "source_file": "NOD FactPages / Equinor Volve Registry",
+    "mapping_method": "EXACT_ALIAS_MATCH",
+    "confidence": "HIGH"
+  }
+]

@@ -1,0 +1,60 @@
+# dependencies
+node_modules/
+**/node_modules/
+*.zip
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+/.pytest_cache/
+/web/playwright-report/
+/web/test-results/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+
+# next.js & frameworks
+/.next/
+/.vinext/
+/out/
+/.wrangler/
+/dist/client/
+/dist/server/
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+
+# vercel
+.vercel
+
+# typescript
+next-env.d.ts
+
+# Checkout-local execution profile and tool state
+/.sites-runtime/
+/.agents/
+/.codex/
+/outputs/
+/work/
+scratch_chrome_user_data/
+*.db-shm
+*.db-wal
+*config.local.js

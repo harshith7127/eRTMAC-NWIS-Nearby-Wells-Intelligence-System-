@@ -1,0 +1,201 @@
+{
+  "model_card_version": "1.0.0",
+  "model_name": "NWIS Phase 6 Hazard Look-Ahead Evaluator",
+  "dataset_identity": "Equinor Volve Field Open Data (Block 15/9)",
+  "provenance": "REAL",
+  "evaluated_wells": [
+    "15/9-19 A",
+    "15/9-F-11",
+    "15/9-F-12",
+    "15/9-F-14",
+    "15/9-F-15",
+    "15/9-F-9"
+  ],
+  "target_definition": "Occurrence of drilling hazard (ANY_HAZARD) in upcoming (MD, MD + 100.0m]",
+  "interval_definition": "30.0-metre non-overlapping prediction points along wellbore trajectory",
+  "cross_validation_scheme": "Leave-One-Well-Out Cross-Validation (LOWOCV)",
+  "leakage_safeguards": [
+    "Strict Leave-One-Well-Out fold splitting (zero wellbore overlap between train and validation)",
+    "Temporal/depth boundary enforcement (features computed strictly at MD <= prediction_md)",
+    "Offset hazard filtering strictly excludes active wellbore and excludes future relative depths",
+    "Rolling telemetry statistics window restricted to past 20m (sample_md <= prediction_md)",
+    "Target labels and post-event fields strictly excluded from feature space",
+    "Phase 4 rule engine alerts strictly segregated as comparison baseline, not ML inputs"
+  ],
+  "features_documented": [
+    {
+      "feature_name": "formation",
+      "source": "Phase 3 Stratigraphic Service",
+      "calculation": "Canonical formation name resolved at prediction MD via formation tops interpolation.",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "REAL",
+      "leakage_guard": "Calculated strictly at prediction MD; does not inspect future formation tops.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "relative_depth",
+      "source": "Phase 3 Formation Top Alignment",
+      "calculation": "Distance in meters below the canonical formation top MD (MD - top_md).",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "DERIVED",
+      "leakage_guard": "Uses top MD of currently active formation at or above prediction point.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "prediction_md",
+      "source": "Wellbore Trajectory Grid",
+      "calculation": "Cumulative measured depth along the wellbore trajectory (30m discretization).",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "REAL",
+      "leakage_guard": "Current interval prediction point; prediction horizon is strictly (MD, MD + 100m].",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "offset_hazard_count_prior",
+      "source": "Canonical Events Table (Filtered)",
+      "calculation": "Count of historical events in offset wells in the same formation at relative depth <= current relative depth.",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "DERIVED",
+      "leakage_guard": "Strictly excludes events from the active wellbore and excludes future relative depths.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "offset_hazard_density",
+      "source": "Canonical Events Table (Filtered)",
+      "calculation": "Total historical events in offset wells in the same canonical formation across all drilled intervals.",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "DERIVED",
+      "leakage_guard": "Strictly aggregates offset wellbores only; active wellbore events are excluded.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "has_offset_loss",
+      "source": "Canonical Events Table (Filtered)",
+      "calculation": "Binary indicator (0/1) if any offset wellbore previously encountered LOSS in this formation at <= relative depth.",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "DERIVED",
+      "leakage_guard": "Strictly excludes active wellbore events.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "has_offset_kick",
+      "source": "Canonical Events Table (Filtered)",
+      "calculation": "Binary indicator (0/1) if any offset wellbore previously encountered KICK in this formation at <= relative depth.",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "DERIVED",
+      "leakage_guard": "Strictly excludes active wellbore events.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "has_offset_tight",
+      "source": "Canonical Events Table (Filtered)",
+      "calculation": "Binary indicator (0/1) if any offset wellbore previously encountered STICKY_HOLE or STUCK_PIPE at <= relative depth.",
+      "depth_basis": "MD",
+      "nullable": false,
+      "provenance": "DERIVED",
+      "leakage_guard": "Strictly excludes active wellbore events.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "telemetry_rop_mean",
+      "source": "Phase 5 Canonical Telemetry",
+      "calculation": "Rolling mean Rate of Penetration (m/h) for previous 20m / samples at or before prediction MD.",
+      "depth_basis": "MD",
+      "nullable": true,
+      "provenance": "REAL",
+      "leakage_guard": "Only averages telemetry samples where sample_md <= prediction_md. Missing telemetry is null.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "telemetry_torque_mean",
+      "source": "Phase 5 Canonical Telemetry",
+      "calculation": "Rolling mean surface torque (kN.m) for previous 20m / samples at or before prediction MD.",
+      "depth_basis": "MD",
+      "nullable": true,
+      "provenance": "REAL",
+      "leakage_guard": "Only averages telemetry samples where sample_md <= prediction_md. Missing telemetry is null.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "telemetry_spp_mean",
+      "source": "Phase 5 Canonical Telemetry",
+      "calculation": "Rolling mean standpipe pressure (psi) for previous 20m / samples at or before prediction MD.",
+      "depth_basis": "MD",
+      "nullable": true,
+      "provenance": "REAL",
+      "leakage_guard": "Only averages telemetry samples where sample_md <= prediction_md. Missing telemetry is null.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "telemetry_wob_mean",
+      "source": "Phase 5 Canonical Telemetry",
+      "calculation": "Rolling mean weight on bit (klbs) for previous 20m / samples at or before prediction MD.",
+      "depth_basis": "MD",
+      "nullable": true,
+      "provenance": "REAL",
+      "leakage_guard": "Only averages telemetry samples where sample_md <= prediction_md. Missing telemetry is null.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "telemetry_flow_in_mean",
+      "source": "Phase 5 Canonical Telemetry",
+      "calculation": "Rolling mean mud flow in (L/min) for previous 20m / samples at or before prediction MD.",
+      "depth_basis": "MD",
+      "nullable": true,
+      "provenance": "REAL",
+      "leakage_guard": "Only averages telemetry samples where sample_md <= prediction_md. Missing telemetry is null.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "telemetry_gas_mean",
+      "source": "Phase 5 Canonical Telemetry",
+      "calculation": "Rolling mean total hydrocarbon gas (%) for previous 20m / samples at or before prediction MD.",
+      "depth_basis": "MD",
+      "nullable": true,
+      "provenance": "REAL",
+      "leakage_guard": "Only averages telemetry samples where sample_md <= prediction_md. Missing telemetry is null.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    },
+    {
+      "feature_name": "telemetry_mud_weight",
+      "source": "Phase 5 Canonical Telemetry",
+      "calculation": "Active mud density (SG) recorded at or before prediction MD.",
+      "depth_basis": "MD",
+      "nullable": true,
+      "provenance": "REAL",
+      "leakage_guard": "Strictly from samples where sample_md <= prediction_md. Missing telemetry is null.",
+      "test_coverage": "backend/tests/test_ml_evaluation.py"
+    }
+  ],
+  "baselines_evaluated": [
+    "Always Negative (trivial zero-alert lower bound)",
+    "Phase 4 Deterministic K-of-N Offset Evidence Rule Engine"
+  ],
+  "models_evaluated": [
+    "Logistic Regression (L2 regularized, balanced class weight, LOWOCV)",
+    "HistGradientBoostingClassifier (Tree-based ensemble, LOWOCV)"
+  ],
+  "evaluation_summary": {
+    "total_intervals": 662,
+    "positive_samples": 34,
+    "negative_samples": 628,
+    "phase4_rule_pr_auc": 0.0514,
+    "logistic_pr_auc": 0.0514,
+    "gradient_boosting_pr_auc": 0.0514
+  },
+  "ship_decision": "NOT_SHIPPED",
+  "ship_decision_reason": "ML did not demonstrate sufficient improvement over the deterministic Phase 4 baseline on the available evaluation data.",
+  "operational_limitations": [
+    "Volve is a public North Sea prototype dataset (Block 15/9) and is not evidence of equivalent event frequencies or model performance for Oil India operations.",
+    "Model trained strictly offline on 6 Volve wellbores; no real-time Oil India / eRTMAC telemetry or drilling events are included.",
+    "Deterministic Phase 4 K-of-N offset rule engine remains the primary operational baseline.",
+    "Predictions reflect cross-validated retrospective backtesting and must not be used as autonomous operational instructions."
+  ]
+}

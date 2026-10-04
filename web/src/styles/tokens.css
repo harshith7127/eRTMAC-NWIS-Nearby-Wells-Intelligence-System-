@@ -1,0 +1,157 @@
+/**
+ * UX4G Compliant Design Tokens — SIH-121 Geoscience Intelligence Platform
+ * Standard: WCAG 2.1 AA (Contrast >= 4.5:1, Min text 12px, Sentence-case labels)
+ */
+
+:root {
+  /* Color Palette — Light Theme Default */
+  --bg-app: #f4f6f8;
+  --bg-surface: #ffffff;
+  --bg-surface-raised: #f8fafc;
+  --bg-surface-sunken: #edf2f7;
+  
+  --border-subtle: #e2e8f0;
+  --border-medium: #cbd5e1;
+  --border-strong: #94a3b8;
+  --border-focus: #1d639b;
+
+  /* Brand: Government Deep Blue */
+  --color-brand-primary: #0f3b60;
+  --color-brand-hover: #164e7d;
+  --color-brand-light: #e6f0fa;
+  --color-brand-contrast: #ffffff;
+
+  /* Typography / Text Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Semantic Alerts (Strictly Evidence-Based) */
+  --alert-ok-bg: #ecfdf5;
+  --alert-ok-border: #a7f3d0;
+  --alert-ok-text: #065f46;
+
+  --alert-concern-bg: #fef2f2;
+  --alert-concern-border: #fecaca;
+  --alert-concern-text: #991b1b;
+
+  --alert-unknown-bg: #fffbeb;
+  --alert-unknown-border: #fde68a;
+  --alert-unknown-text: #92400e;
+
+  /* Provenance Badges */
+  --prov-real-bg: #eff6ff;
+  --prov-real-border: #bfdbfe;
+  --prov-real-text: #1e40af;
+
+  --prov-derived-bg: #f0fdf4;
+  --prov-derived-border: #bbf7d0;
+  --prov-derived-text: #166534;
+
+  --prov-synthetic-bg: #fff1f2;
+  --prov-synthetic-border: #fecdd3;
+  --prov-synthetic-text: #9f1239;
+
+  /* Typography Sizes (Standard: 12, 14, 16, 20, 28 px. Min 12px!) */
+  --font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'Noto Sans Mono', Consolas, monospace;
+  
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Borders & Radius */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* Elevation Shadows (Restrained, Professional) */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.03);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 250ms ease;
+
+  /* Layout Dimensions */
+  --header-height: 52px;
+  --status-bar-height: 28px;
+  --sidebar-left-width: 280px;
+  --sidebar-right-width: 380px;
+  --bottom-dock-height: 220px;
+}
+
+/* Optional Muted Dark Theme */
+[data-theme='dark'] {
+  --bg-app: #0b1320;
+  --bg-surface: #111c2e;
+  --bg-surface-raised: #18263e;
+  --bg-surface-sunken: #0c1524;
+  
+  --border-subtle: #1e304d;
+  --border-medium: #2b4369;
+  --border-strong: #3f5f90;
+  --border-focus: #3b82f6;
+
+  --color-brand-primary: #1d639b;
+  --color-brand-hover: #2579bc;
+  --color-brand-light: #162c47;
+  --color-brand-contrast: #ffffff;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0f172a;
+
+  --alert-ok-bg: #064e3b;
+  --alert-ok-border: #047857;
+  --alert-ok-text: #a7f3d0;
+
+  --alert-concern-bg: #7f1d1d;
+  --alert-concern-border: #b91c1c;
+  --alert-concern-text: #fecaca;
+
+  --alert-unknown-bg: #78350f;
+  --alert-unknown-border: #b45309;
+  --alert-unknown-text: #fde68a;
+
+  --prov-real-bg: #172554;
+  --prov-real-border: #1e40af;
+  --prov-real-text: #93c5fd;
+
+  --prov-derived-bg: #14532d;
+  --prov-derived-border: #166534;
+  --prov-derived-text: #86efac;
+
+  --prov-synthetic-bg: #881337;
+  --prov-synthetic-border: #9f1239;
+  --prov-synthetic-text: #fda4af;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}

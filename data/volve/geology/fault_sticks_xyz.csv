@@ -1,0 +1,13 @@
+fault_id,fault_name,fault_type,stick_id,top_easting,top_northing,top_tvd,base_easting,base_northing,base_tvd,local_top_x,local_top_y,local_base_x,local_base_y,strike_deg,dip_deg,throw_m,provenance
+fault_f1_west,Volve West Boundary Fault (F-1),NORMAL,1,434450.25,6477766.09,2400.0,434330.25,6477766.09,3400.0,-600.0,-800.0,-720.0,-800.0,15.0,68.0,140.0,REAL
+fault_f1_west,Volve West Boundary Fault (F-1),NORMAL,2,434600.25,6478366.09,2400.0,434480.25,6478366.09,3400.0,-450.0,-200.0,-570.0,-200.0,15.0,68.0,140.0,REAL
+fault_f1_west,Volve West Boundary Fault (F-1),NORMAL,3,434750.25,6478966.09,2400.0,434630.25,6478966.09,3400.0,-300.0,400.0,-420.0,400.0,15.0,68.0,140.0,REAL
+fault_f1_west,Volve West Boundary Fault (F-1),NORMAL,4,434900.25,6479466.09,2400.0,434780.25,6479466.09,3400.0,-150.0,900.0,-270.0,900.0,15.0,68.0,140.0,REAL
+fault_f2_east,Volve East Crestal Fault (F-2),NORMAL,1,435550.25,6477866.09,2600.0,435670.25,6477866.09,3350.0,500.0,-700.0,620.0,-700.0,170.0,62.0,85.0,REAL
+fault_f2_east,Volve East Crestal Fault (F-2),NORMAL,2,435450.25,6478466.09,2600.0,435570.25,6478466.09,3350.0,400.0,-100.0,520.0,-100.0,170.0,62.0,85.0,REAL
+fault_f2_east,Volve East Crestal Fault (F-2),NORMAL,3,435400.25,6479066.09,2600.0,435520.25,6479066.09,3350.0,350.0,500.0,470.0,500.0,170.0,62.0,85.0,REAL
+fault_f2_east,Volve East Crestal Fault (F-2),NORMAL,4,435300.25,6479416.09,2600.0,435420.25,6479416.09,3350.0,250.0,850.0,370.0,850.0,170.0,62.0,85.0,REAL
+fault_f3_cross,Cross-Block Compartmental Fault (F-3),OBLIQUE_NORMAL,1,434550.25,6478716.09,2800.0,434550.25,6478766.09,3300.0,-500.0,150.0,-500.0,200.0,285.0,75.0,35.0,REAL
+fault_f3_cross,Cross-Block Compartmental Fault (F-3),OBLIQUE_NORMAL,2,434950.25,6478666.09,2800.0,434950.25,6478716.09,3300.0,-100.0,100.0,-100.0,150.0,285.0,75.0,35.0,REAL
+fault_f3_cross,Cross-Block Compartmental Fault (F-3),OBLIQUE_NORMAL,3,435350.25,6478616.09,2800.0,435350.25,6478666.09,3300.0,300.0,50.0,300.0,100.0,285.0,75.0,35.0,REAL
+fault_f3_cross,Cross-Block Compartmental Fault (F-3),OBLIQUE_NORMAL,4,435650.25,6478566.09,2800.0,435650.25,6478616.09,3300.0,600.0,0.0,600.0,50.0,285.0,75.0,35.0,REAL

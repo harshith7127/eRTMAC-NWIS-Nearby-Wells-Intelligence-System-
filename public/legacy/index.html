@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NWIS — National Well Intelligence System | Real-Time Drilling Command Center</title>
+  <meta name="description" content="AI-powered drilling intelligence and real-time decision-support platform. Look-ahead risk prediction, offset well correlation, and explainable evidence retrieval.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070d17'/%3E%3Cpath d='M16 42V21h8l8 11 8-11h8v21h-8V33l-8 10-8-10v9z' fill='%2322d3ee'/%3E%3Ccircle cx='49' cy='15' r='4' fill='%2310b981'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="command.css">
+</head>
+<body>
+<!-- Legacy Prototype Archive Banner (Rule R8) -->
+<div id="legacy-archive-banner" style="position: sticky; top: 0; z-index: 999999; background: #b45309; color: #ffffff; padding: 10px 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: bold; text-align: center; border-bottom: 2px solid #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; gap: 12px;">
+  <span>⚠ Legacy Prototype Archive — Retained for historical validation and audit reference only.</span>
+  <a href="http://127.0.0.1:5173" style="background: #fef08a; color: #78350f; padding: 4px 10px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 12px;">Launch Main Platform (web/) &rarr;</a>
+</div>
+>
+  <div class="app-shell">
+    <!-- Left Collapsible Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">N</div>
+        <div class="brand-titles">
+          <div class="brand-name">NWIS</div>
+          <div class="brand-sub">DRILLING INTELLIGENCE</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Command Center Navigation">
+        <button class="nav-item active" data-tab="Overview">
+          <span class="nav-icon">📊</span>
+          <span>Overview</span>
+        </button>
+        <button class="nav-item" data-tab="Live Operations">
+          <span class="nav-icon">📈</span>
+          <span>Live Operations</span>
+        </button>
+        <button class="nav-item" data-tab="Risk Intelligence">
+          <span class="nav-icon">🛡️</span>
+          <span>Risk Intelligence</span>
+          <span class="nav-badge">Critical</span>
+        </button>
+        <button class="nav-item" data-tab="Well Explorer">
+          <span class="nav-icon">🧭</span>
+          <span>Well Explorer</span>
+        </button>
+        <button class="nav-item" data-tab="Offset Wells">
+          <span class="nav-icon">🔀</span>
+          <span>Offset Wells</span>
+        </button>
+        <button class="nav-item" data-tab="Area Map">
+          <span class="nav-icon">🗺️</span>
+          <span>Area Map (Place Query)</span>
+        </button>
+        <button class="nav-item" data-tab="Formation Correlation">
+          <span class="nav-icon">🥞</span>
+          <span>Formation Correlation</span>
+        </button>
+        <button class="nav-item" data-tab="3D Well View">
+          <span class="nav-icon">🧊</span>
+          <span>3D Well View</span>
+        </button>
+        <button class="nav-item" data-tab="Reports & Evidence">
+          <span class="nav-icon">📚</span>
+          <span>Drilling Knowledge</span>
+        </button>
+        <button class="nav-item" data-tab="AI Copilot">
+          <span class="nav-icon">✨</span>
+          <span>AI Copilot</span>
+        </button>
+        <button class="nav-item" data-tab="Incident Library">
+          <span class="nav-icon">⚠️</span>
+          <span>Incident Library</span>
+        </button>
+        <button class="nav-item" data-tab="Analytics">
+          <span class="nav-icon">📉</span>
+          <span>Analytics</span>
+        </button>
+        <button class="nav-item" data-tab="Settings">
+          <span class="nav-icon">⚙️</span>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="rig-status-card">
+          <b id="sidebar-active-well-name">15/9-F-12 Active Replay</b>
+          <div style="color:var(--cyan);font-size:10px;" id="sidebar-active-status">● PUBLIC VOLVE REPLAY</div>
+          <div style="color:var(--text-dim);font-size:9px;margin-top:4px;">Equinor Volve Field · Block 15/9, North Sea</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="app-content">
+      <!-- Top Bar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" title="Toggle Navigation Sidebar">☰</button>
+          <div class="topbar-crumb">
+            <span>NWIS Operational Station</span> / <b id="top-well-id">15/9-F-12</b> / <span id="top-formation-crumb" style="color:var(--cyan);">Upper Hordaland Shale</span>
+          </div>
+        </div>
+
+        <div class="topbar-status-strip">
+          <div class="strip-item">
+            <span class="strip-label">WELL:</span>
+            <span class="strip-value" id="top-well-strip" style="color:var(--cyan);">15/9-F-12</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-label">STATUS:</span>
+            <span class="status-pill-drilling" id="top-status-pill" style="background:#0e3a5a;color:#38bdf8;border:1px solid #0284c7;">VOLVE REPLAY</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-label">DEPTH:</span>
+            <span class="strip-value" id="top-depth">1,842.5 m</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-label">FORMATION:</span>
+            <span class="strip-value" id="top-formation">Upper Hordaland Shale</span>
+          </div>
+          <div class="strip-item">
+            <div style="display:flex;flex-direction:column;gap:1px;">
+              <span class="status-pill-live" style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.4);" title="Authentic Equinor Volve Field open data replayed sequentially for research and demonstration.">
+                <span class="live-pulse-dot" style="background:#06b6d4;"></span>
+                <span style="font-weight:700;">PUBLIC VOLVE REPLAY</span>
+                <span class="badge-real-data" style="background:rgba(6,182,212,0.2);color:#38bdf8;border:1px solid #0284c7;font-size:9px;padding:1px 4px;border-radius:3px;" title="Equinor Volve Field Open Data — Norwegian North Sea Block 15/9.">PUBLIC VOLVE DATA</span>
+              </span>
+              <span style="font-size:9px;color:#94a3b8;letter-spacing:0.01em;">Historical telemetry playback · eRTMAC: NOT CONNECTED</span>
+            </div>
+          </div>
+          <div class="strip-item">
+            <span class="strip-label">RECORDED TIME:</span>
+            <span class="strip-value" id="top-recorded-time" style="font-family:var(--font-mono);font-size:10px;color:#38bdf8;">2007-06-15 04:00:00Z</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-label">SPEED:</span>
+            <span class="strip-value" id="top-speed-indicator" style="font-size:10px;color:var(--green);font-weight:700;">1.0×</span>
+          </div>
+          <div class="strip-item">
+            <span id="api-status-pill" style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);display:inline-flex;align-items:center;gap:4px;" title="FastAPI canonical backend connection status">
+              <span style="width:6px;height:6px;border-radius:50%;background:#fbbf24;display:inline-block;"></span>
+              <span>API: OFFLINE FALLBACK</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="demo-banner-btn" id="guided-demo-btn" title="Start 19-Step Guided Walkthrough">
+            ▶ Guided Demo
+          </button>
+          <button class="search-input-btn" id="global-search-btn" title="Search all wells, reports, and incidents">
+            <span>Search</span>
+            <span class="kbd-badge">/</span>
+          </button>
+          <select id="language-selector" class="topbar-select" aria-label="Select Language">
+            <option value="en">EN · English</option>
+            <option value="hi">HI · हिन्दी</option>
+            <option value="mr">MR · मराठी</option>
+          </select>
+          <button class="copilot-trigger-btn" id="copilot-toggle-btn" title="Toggle Operational Assistant Drawer">
+            💬 Assistant
+          </button>
+          <div style="display:flex;align-items:center;gap:8px;padding-left:6px;border-left:1px solid var(--border);">
+            <div style="width:28px;height:28px;border-radius:50%;background:#1e3a5f;color:var(--cyan);display:grid;place-items:center;font-weight:800;font-size:11px;">DE</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Viewport Content Area -->
+      <main id="viewport-content" class="viewport-container" role="main"></main>
+    </div>
+  </div>
+
+  <!-- Explainable Rule Trigger Drawer -->
+  <div class="alert-drawer-backdrop" id="alert-drawer-backdrop">
+    <div class="alert-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+      <div class="drawer-head">
+        <div>
+          <div id="drawer-probability-badge" style="display:flex;align-items:center;gap:10px;margin-bottom:4px;"></div>
+          <h2 class="drawer-title" id="drawer-title">STUCK-PIPE RULE TRIGGER</h2>
+          <div class="drawer-subtitle" id="drawer-depth-ahead">Predicted around 2,040 m · 198 m ahead</div>
+        </div>
+        <button class="drawer-close-btn" onclick="window.closeAlertDrawer()" aria-label="Close Alert Drawer">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Why This Triggered -->
+        <div>
+          <div class="drawer-section-title">WHY THIS TRIGGERED (PHYSICAL SENSOR THRESHOLDS)</div>
+          <div id="drawer-triggers-container"></div>
+        </div>
+
+        <!-- Data Quality & Model Confidence -->
+        <div class="quality-confidence-row">
+          <div class="qc-box">
+            <span style="color:var(--cyan);">DATA QUALITY</span>
+            <b id="drawer-data-quality" style="font-size:12px;color:#94a3b8;">Not calculated</b>
+            <small style="color:var(--text-dim);font-size:10px;">Field sensor calibration unverified</small>
+          </div>
+          <div class="qc-box">
+            <span style="color:var(--green);">HISTORICAL CITATION COVERAGE</span>
+            <b id="drawer-model-confidence" style="font-size:13px;color:#38bdf8;">2 Offset Citations</b>
+            <small style="color:var(--text-dim);font-size:10px;">Correlated offset incident evidence</small>
+          </div>
+        </div>
+
+        <!-- Historical Offset Practice -->
+        <div class="mitigation-box">
+          <div class="mitigation-title">HISTORICAL OFFSET PRACTICE (ENGINEERING RECORD)</div>
+          <p id="drawer-mitigation-text" style="font-size:12px;color:#f8fafc;margin:0 0 10px;line-height:1.6;"></p>
+          <div style="font-size:10px;color:#a5f3fc;background:rgba(8,145,178,0.2);padding:6px 10px;border-radius:4px;margin-bottom:12px;">
+            <b>OPERATIONAL NOTE:</b> Decision-support historical practice record only. Final operational decisions remain strictly with qualified drilling personnel.
+          </div>
+          <div class="drawer-actions-row">
+            <button class="btn btn-primary" onclick="window.applySimulationMitigation()">APPLY TO SIMULATION ▶</button>
+            <button class="btn btn-outline" onclick="notify('Historical offset practice acknowledged by Drilling Engineer.','success')">Acknowledge</button>
+            <button class="btn btn-outline" onclick="activeTab='Offset Wells';window.closeAlertDrawer();renderCurrentView();">Compare Offset Wells</button>
+          </div>
+        </div>
+
+        <!-- Historical Cited Passages -->
+        <div>
+          <div class="drawer-section-title">HISTORICAL ANALOGUE EVIDENCE (VERIFIED CITATIONS)</div>
+          <div id="drawer-citations-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Persistent Right-Side AI Copilot Drawer -->
+  <div class="copilot-panel" id="copilot-drawer">
+    <div class="copilot-header">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="color:var(--cyan);font-size:16px;">✨</span>
+        <strong style="color:#fff;font-size:13px;">AI Drilling Copilot</strong>
+      </div>
+      <button class="drawer-close-btn" id="copilot-drawer-close">✕</button>
+    </div>
+    <div class="copilot-chat-body" id="drawer-copilot-chat-body"></div>
+    <div class="copilot-pills-row">
+      <button class="prompt-pill" onclick="window.askCopilot('What risks are ahead in the next 200 m?')">Next 200 m risks?</button>
+      <button class="prompt-pill" onclick="window.askCopilot('Why is torque increasing?')">Why is torque rising?</button>
+      <button class="prompt-pill" onclick="window.askCopilot('Show similar incidents from B-04.')">B-04 incidents?</button>
+      <button class="prompt-pill" onclick="window.askCopilot('Generate a pre-formation drilling brief.')">Pre-formation brief</button>
+    </div>
+    <div class="copilot-input-row">
+      <input type="text" id="drawer-copilot-input" class="copilot-input" placeholder="Ask about risks, offsets, or formations...">
+      <button class="btn btn-primary" id="drawer-copilot-send" style="padding:0 12px;">Send</button>
+    </div>
+  </div>
+
+  <!-- Shared Modal Dialog -->
+  <dialog id="op-modal" aria-labelledby="dialogTitle"></dialog>
+
+  <!-- Core Scripts -->
+  <script src="engine.js"></script>
+  <script src="command-engine.js"></script>
+  <script src="witsml-parser.js"></script>
+  <script src="volve-data-bundle.js"></script>
+  <script src="volve-replay.js"></script>
+  <script src="nwis-data.js"></script>
+  <script src="api-client.js"></script>
+  <script src="workbench.js"></script>
+  <script src="command.js"></script>
+  <script src="config.local.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    // Copilot drawer input binding
+    document.getElementById('drawer-copilot-send')?.addEventListener('click', () => {
+      const el = document.getElementById('drawer-copilot-input');
+      if (el && el.value) {
+        window.askCopilot(el.value);
+        el.value = '';
+      }
+    });
+    document.getElementById('drawer-copilot-input')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        document.getElementById('drawer-copilot-send')?.click();
+      }
+    });
+  </script>
+</body>
+</html>

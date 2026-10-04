@@ -1,0 +1,39 @@
+services:
+  nwis-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sih121-nwis-platform
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - SQLITE_DB_PATH=/app/data/nwis.db
+    volumes:
+      - ./data:/app/data:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Optional PostGIS Enterprise Database Service
+  postgis:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: sih121-postgis
+    profiles:
+      - enterprise
+    environment:
+      - POSTGRES_DB=nwis_geospatial
+      - POSTGRES_USER=nwis_admin
+      - POSTGRES_PASSWORD=nwis_secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+      - ./backend/app/migrations/postgis_migration.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+
+volumes:
+  postgis_data:

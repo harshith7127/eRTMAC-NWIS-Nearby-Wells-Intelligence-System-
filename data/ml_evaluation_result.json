@@ -1,0 +1,124 @@
+{
+  "dataset": "VOLVE_PUBLIC",
+  "provenance": "REAL",
+  "evaluation_method": "LEAVE_ONE_WELL_OUT",
+  "target_event": "ANY_HAZARD",
+  "prediction_horizon_m": 100.0,
+  "interval_size_m": 30.0,
+  "evaluated_wells": [
+    "15/9-19 A",
+    "15/9-F-11",
+    "15/9-F-12",
+    "15/9-F-14",
+    "15/9-F-15",
+    "15/9-F-9"
+  ],
+  "total_intervals": 662,
+  "positive_samples": 34,
+  "negative_samples": 628,
+  "baselines": {
+    "always_negative": {
+      "model_name": "Always Negative Baseline",
+      "pr_auc": 0.0514,
+      "roc_auc": 0.5,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "alert_count": 0,
+      "alerts_per_1000m": 0.0,
+      "lead_distance": {
+        "count": 0,
+        "mean_m": null,
+        "median_m": null,
+        "min_m": null,
+        "max_m": null,
+        "depth_basis": "MD",
+        "computable": false,
+        "reason": "Not computable \u2014 zero true positive alert intervals."
+      },
+      "computable": true,
+      "reason": "Trivial lower bound: predicts zero alerts for all intervals."
+    },
+    "phase4_rule": {
+      "model_name": "Phase 4 Deterministic K-of-N Rule Engine",
+      "pr_auc": 0.0514,
+      "roc_auc": 0.4092,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "alert_count": 114,
+      "alerts_per_1000m": 5.74,
+      "lead_distance": {
+        "count": 0,
+        "mean_m": null,
+        "median_m": null,
+        "min_m": null,
+        "max_m": null,
+        "depth_basis": "MD",
+        "computable": false,
+        "reason": "Not computable \u2014 zero true positive alert intervals."
+      },
+      "computable": true,
+      "reason": "Operational baseline derived strictly from offset evidence matching."
+    }
+  },
+  "models": {
+    "logistic_regression": {
+      "model_name": "Logistic Regression (LOWOCV)",
+      "pr_auc": 0.0514,
+      "roc_auc": 0.0764,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "alert_count": 0,
+      "alerts_per_1000m": 0.0,
+      "lead_distance": {
+        "count": 0,
+        "mean_m": null,
+        "median_m": null,
+        "min_m": null,
+        "max_m": null,
+        "depth_basis": "MD",
+        "computable": false,
+        "reason": "Not computable \u2014 zero true positive alert intervals."
+      },
+      "computable": true,
+      "reason": null
+    },
+    "gradient_boosting": {
+      "model_name": "Gradient Boosting (LOWOCV)",
+      "pr_auc": 0.0514,
+      "roc_auc": 0.0764,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "alert_count": 4,
+      "alerts_per_1000m": 0.2,
+      "lead_distance": {
+        "count": 0,
+        "mean_m": null,
+        "median_m": null,
+        "min_m": null,
+        "max_m": null,
+        "depth_basis": "MD",
+        "computable": false,
+        "reason": "Not computable \u2014 zero true positive alert intervals."
+      },
+      "computable": true,
+      "reason": null
+    }
+  },
+  "beats_rule_baseline": false,
+  "model_status": "NOT_SHIPPED",
+  "status_reason": "ML did not demonstrate sufficient improvement over the deterministic Phase 4 baseline on the available evaluation data.",
+  "decision_details": [
+    "ML models (Best PR-AUC 0.0514) did not demonstrate measurable +0.05 PR-AUC improvement over Phase 4 rule baseline (PR-AUC 0.0514)."
+  ],
+  "limitations": [
+    "Volve is a public North Sea prototype dataset (Block 15/9) and is not evidence of equivalent event frequencies or model performance for Oil India operations.",
+    "Model trained strictly offline on 6 Volve wellbores; no real-time Oil India / eRTMAC telemetry or drilling events are included.",
+    "Deterministic Phase 4 K-of-N offset rule engine remains the primary operational baseline.",
+    "Predictions reflect cross-validated retrospective backtesting and must not be used as autonomous operational instructions."
+  ],
+  "timestamp": "2026-09-30T05:37:58.086203+00:00"
+}
