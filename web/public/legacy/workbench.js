@@ -34,13 +34,13 @@
       <div class="scene-stage" style="height:${isStandalone ? 'calc(100vh - 280px)' : '460px'};min-height:380px;position:relative;">
         <canvas tabindex="0" aria-label="Interactive 3D subsurface workspace: drag to orbit, Shift-drag to pan, scroll to zoom." style="width:100%;height:100%;display:block;cursor:grab;"></canvas>
         <div class="scene-corner">
-          <span class="scene-dot"></span> <b>ACTIVE: A-17 (1,842.4 m)</b> · Upper Shale<br>
+          <span class="scene-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;"></span> <b>ACTIVE: A-17 (1,842.4 m)</b> · Upper Shale<br>
           <small>Study radius: 10 km · MD Depth Scale: ${camera.scale.toFixed(1)}×</small>
         </div>
         <div class="scene-hint">Drag to orbit · Shift + drag to pan · Scroll to zoom · Click markers for alert explanation</div>
         <div class="scene-key">
-          <span style="color:#22d3ee">● Active Bit (1,842 m)</span>
-          <span style="color:#a5b4fc">● Offset Wells</span>
+          <span style="color:#10b981;font-weight:600;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#10b981;margin-right:4px;box-shadow:0 0 6px #10b981;"></span>Active Well (Green Dot)</span>
+          <span style="color:#38bdf8;font-weight:600;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#38bdf8;margin-right:4px;box-shadow:0 0 6px #38bdf8;"></span>Offset Wells (Blue Dot)</span>
           <span style="color:#f59e0b">● Historical Incidents</span>
           <span style="color:#ef4444">● Predicted Risk Zones</span>
           <span style="color:#38bdf8">▬ Casing Shoe (1,650 m)</span>

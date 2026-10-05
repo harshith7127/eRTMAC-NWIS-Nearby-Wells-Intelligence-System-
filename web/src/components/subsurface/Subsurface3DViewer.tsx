@@ -2214,6 +2214,14 @@ export const Subsurface3DViewer: React.FC = () => {
             boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
           }}
         >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold' }}>
+            <span style={{ width: '8px', height: '8px', backgroundColor: '#22c55e', borderRadius: '50%', boxShadow: '0 0 6px #22c55e' }} />
+            <span style={{ color: '#86efac' }}>Active Well</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold' }}>
+            <span style={{ width: '8px', height: '8px', backgroundColor: '#0284c7', borderRadius: '50%', boxShadow: '0 0 6px #0284c7' }} />
+            <span style={{ color: '#7dd3fc' }}>Offset Wells</span>
+          </div>
           {modelType === 'STRATA' && (
             <>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>

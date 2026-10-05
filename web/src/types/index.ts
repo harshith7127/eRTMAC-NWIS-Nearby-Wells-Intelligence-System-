@@ -4,7 +4,7 @@
  */
 
 export type ProvenanceOrigin = 'REAL' | 'DERIVED' | 'SYNTHETIC';
-export type ConfidenceLevel = 'HIGH' | 'MODERATE' | 'LOW' | 'UNKNOWN';
+export type ConfidenceLevel = 'HIGH' | 'MEDIUM' | 'MODERATE' | 'LOW' | 'UNKNOWN';
 
 // Canonical Exploration Application Modes (including Dashboard with legacy aliases)
 export type CanonicalAppMode = 'DASHBOARD' | 'MAP' | 'SUBSURFACE' | 'NEAR_WELL' | 'COMPARISON' | 'ANALYSIS' | 'REPORT';
@@ -157,12 +157,14 @@ export interface LookaheadResult {
 
 export interface SiteAnalysisFactor {
   factor: string;
-  value: string;
+  value?: string;
   unit?: string;
   source: string;
-  origin: ProvenanceOrigin;
+  origin?: ProvenanceOrigin;
+  provenance?: ProvenanceOrigin;
   status: 'OK' | 'UNKNOWN' | 'CONCERN';
-  rule_text: string;
+  rule_text?: string;
+  rule?: string;
   evidence?: string;
   summary?: string;
 }
@@ -172,12 +174,14 @@ export interface SiteAnalysisSummary {
   factors: SiteAnalysisFactor[];
   completeness: { total: number; available: number };
   concerns_count: number;
-  provenance: ProvenanceMetadata;
+  provenance: ProvenanceMetadata | ProvenanceOrigin;
   target_depth_m?: number;
   target_formation?: string;
   workspace?: string;
   overall_confidence?: ConfidenceLevel;
   disclaimer?: string;
+  nearby_wells?: any[];
+  data_gaps?: string[];
 }
 
 export type LocationAnalysisResponse = SiteAnalysisSummary;
@@ -273,10 +277,11 @@ export interface GeologyProbeResult {
   depth_basis: DepthBasis;
   workspace: string;
   formation: string;
+  group_name?: string;
   formation_top_tvd_m?: number;
   formation_base_tvd_m?: number;
   lithology: string;
-  data_availability: 'MEASURED' | 'INTERPOLATED' | 'EXTRAPOLATED' | 'DATA_NOT_AVAILABLE';
+  data_availability: 'MEASURED' | 'INTERPOLATED' | 'EXTRAPOLATED' | 'MODELLED' | 'DATA_NOT_AVAILABLE';
   confidence: ConfidenceLevel;
   provenance: ProvenanceOrigin;
   nearby_wells: string[];

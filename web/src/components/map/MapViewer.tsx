@@ -750,7 +750,7 @@ export const MapViewer: React.FC = () => {
     };
   }, [isCanvasMaximized, showLayerManager, showDetailsPanel, showBottomDock]);
 
-  // 3. Render Well Markers & Platform Disambiguation
+  // 3. Render Well Markers (Green Dot for Active Well, Blue Dots for Offset Wells)
   useEffect(() => {
     const map = mapRef.current;
     if (!map || wells.length === 0) return;
@@ -759,151 +759,148 @@ export const MapViewer: React.FC = () => {
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    // Group wells by proximity (Volve platform slot cluster: 15/9-F-12, F-15, F-14, F-11, F-9, F-4)
+    // Identify platform cluster wells vs isolated wells
     const platformWells = wells.filter(w => w.id.startsWith('15/9-F-'));
-    const isolatedWells = wells.filter(w => !w.id.startsWith('15/9-F-'));
 
-    // A. Add Platform Cluster Marker
+    // A. Add Platform Central Header/Badge if platform wells exist
     if (platformWells.length > 0) {
-      const pLat = platformWells[0].lat;
-      const pLon = platformWells[0].lon;
+      const centerLat = platformWells[0].lat;
+      const centerLon = platformWells[0].lon;
 
-      const el = document.createElement('div');
-      el.className = 'platform-marker-cluster';
-      el.style.width = '42px';
-      el.style.height = '42px';
-      el.style.borderRadius = '50%';
-      el.style.backgroundColor = '#0284c7';
-      el.style.border = '3px solid #ffffff';
-      el.style.color = '#ffffff';
-      el.style.display = 'flex';
-      el.style.flexDirection = 'column';
-      el.style.alignItems = 'center';
-      el.style.justifyContent = 'center';
-      el.style.boxShadow = '0 2px 10px rgba(0,0,0,0.35)';
-      el.style.cursor = 'pointer';
-      el.style.fontSize = '11px';
-      el.style.fontWeight = 'bold';
-      el.innerHTML = `<span>⛯</span><span style="font-size:9px;">${platformWells.length}W</span>`;
+      const pEl = document.createElement('div');
+      pEl.className = 'platform-center-badge';
+      pEl.style.padding = '2px 6px';
+      pEl.style.borderRadius = '4px';
+      pEl.style.backgroundColor = 'rgba(15, 23, 42, 0.85)';
+      pEl.style.border = '1px solid #38bdf8';
+      pEl.style.color = '#7dd3fc';
+      pEl.style.fontSize = '10px';
+      pEl.style.fontWeight = 'bold';
+      pEl.style.boxShadow = '0 2px 6px rgba(0,0,0,0.4)';
+      pEl.style.pointerEvents = 'none';
+      pEl.style.transform = 'translateY(-28px)';
+      pEl.innerHTML = `⛯ Volve Platform (${platformWells.length} Slots)`;
 
-      // Popup with Disambiguation Slots
-      const slotItems = platformWells.map(w => `
-        <div class="slot-item" style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid #e2e8f0;">
-          <div>
-            <span style="font-weight:${w.id === activeWellId ? '700' : '500'};color:${w.id === activeWellId ? '#0284c7' : '#1e293b'}">
-              ${w.id === activeWellId ? '● ' : ''}${w.name}
-            </span>
-            <div style="font-size:10px;color:#64748b;">TD: ${w.total_depth_m}m • ${w.status}</div>
-          </div>
-          <div style="display:flex;gap:4px;">
-            <button data-well-id="${w.id}" style="background:${w.id === activeWellId ? '#0284c7' : '#f1f5f9'};color:${w.id === activeWellId ? '#fff' : '#0f172a'};border:1px solid #cbd5e1;padding:2px 8px;border-radius:3px;font-size:10px;cursor:pointer;">
-              Select
-            </button>
-            <button data-3d-well-id="${w.id}" style="background:#0369a1;color:#ffffff;border:none;padding:2px 6px;border-radius:3px;font-size:10px;cursor:pointer;">
-              3D
-            </button>
-          </div>
-        </div>
-      `).join('');
-
-      const popupHtml = `
-        <div style="font-family:system-ui,sans-serif;font-size:12px;color:#0f172a;min-width:270px;">
-          <div style="font-weight:700;color:#0369a1;border-bottom:2px solid #0284c7;padding-bottom:4px;margin-bottom:8px;">
-            ⛯ Volve Production Platform
-            <div style="font-size:10px;color:#64748b;font-weight:normal;">Central drilling template (5 well slots)</div>
-          </div>
-          <div style="max-height:180px;overflow-y:auto;padding-right:2px;">
-            ${slotItems}
-          </div>
-          <button id="btn-cluster-subsurface" style="margin-top:8px;width:100%;background:#0284c7;color:#ffffff;border:none;padding:6px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;">
-            ENTER SUBSURFACE (3D)
-          </button>
-        </div>
-      `;
-
-      const popup = new Popup({ offset: 20 }).setHTML(popupHtml);
-
-      popup.on('open', () => {
-        const buttons = document.querySelectorAll('button[data-well-id]');
-        buttons.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const wid = (e.currentTarget as HTMLElement).getAttribute('data-well-id');
-            if (wid) {
-              setActiveWell(wid);
-              setSelectedObject(wid, 'well');
-            }
-          });
-        });
-
-        const buttons3d = document.querySelectorAll('button[data-3d-well-id]');
-        buttons3d.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const wid = (e.currentTarget as HTMLElement).getAttribute('data-3d-well-id');
-            if (wid) {
-              setActiveWell(wid);
-              setSelectedObject(wid, 'well');
-              if (setActiveMode) setActiveMode('SUBSURFACE');
-              if (setMode) setMode('subsurface');
-            }
-          });
-        });
-
-        const btnCluster3D = document.getElementById('btn-cluster-subsurface');
-        if (btnCluster3D) {
-          btnCluster3D.onclick = () => {
-            if (setActiveMode) setActiveMode('SUBSURFACE');
-            if (setMode) setMode('subsurface');
-          };
-        }
-      });
-
-      const clusterMarker = new Marker({ element: el })
-        .setLngLat([pLon, pLat])
-        .setPopup(popup)
+      const pMarker = new Marker({ element: pEl })
+        .setLngLat([centerLon, centerLat])
         .addTo(map);
 
-      markersRef.current.push(clusterMarker);
+      markersRef.current.push(pMarker);
     }
 
-    // B. Add Isolated Wells (e.g. 15/9-19 A discovery well)
-    isolatedWells.forEach(well => {
-      const el = document.createElement('div');
+    // B. Render Green Dot for Active Well and Blue Dots for Offset Wells
+    wells.forEach((well) => {
       const isSelected = well.id === activeWellId;
-      el.style.width = isSelected ? '30px' : '24px';
-      el.style.height = isSelected ? '30px' : '24px';
-      el.style.borderRadius = '50%';
-      el.style.backgroundColor = isSelected ? '#22c55e' : '#0284c7';
-      el.style.border = '2px solid white';
-      el.style.display = 'flex';
-      el.style.alignItems = 'center';
-      el.style.justifyContent = 'center';
-      el.style.color = 'white';
-      el.style.fontSize = '11px';
-      el.style.boxShadow = isSelected ? '0 0 12px #22c55e' : '0 2px 5px rgba(0,0,0,0.3)';
-      el.style.cursor = 'pointer';
-      el.innerHTML = '🛢️';
 
-      el.addEventListener('click', () => {
+      // Calculate coordinates: if part of platform cluster, micro-offset position in a ring so dots don't overlap
+      let lat = well.lat;
+      let lon = well.lon;
+      const isPlatform = well.id.startsWith('15/9-F-');
+      if (isPlatform && platformWells.length > 1) {
+        const slotIdx = platformWells.findIndex(w => w.id === well.id);
+        if (slotIdx >= 0) {
+          const angle = (2 * Math.PI * slotIdx) / platformWells.length;
+          const radiusDeg = 0.00035; // ~35m radial slot separation
+          lat += radiusDeg * Math.cos(angle);
+          lon += (radiusDeg * Math.sin(angle)) / Math.cos(well.lat * Math.PI / 180);
+        }
+      }
+
+      // Create Container Element for the Marker
+      const container = document.createElement('div');
+      container.style.display = 'flex';
+      container.style.flexDirection = 'column';
+      container.style.alignItems = 'center';
+      container.style.cursor = 'pointer';
+      container.style.zIndex = isSelected ? '100' : '10';
+
+      // Dot Element (Green Dot for Active Well, Blue Dot for Offset Well)
+      const dot = document.createElement('div');
+      dot.className = isSelected ? 'map-green-dot' : 'map-blue-dot';
+      dot.style.width = isSelected ? '18px' : '14px';
+      dot.style.height = isSelected ? '18px' : '14px';
+      dot.style.borderRadius = '50%';
+      dot.style.backgroundColor = isSelected ? '#22c55e' : '#0284c7';
+      dot.style.border = '2px solid #ffffff';
+      dot.style.boxShadow = isSelected
+        ? '0 0 12px #22c55e, 0 0 0 4px rgba(34, 197, 94, 0.35)'
+        : '0 0 8px #0284c7, 0 0 0 2px rgba(2, 132, 199, 0.25)';
+      dot.style.transition = 'all 0.2s ease-in-out';
+
+      // Inner glow indicator for active well
+      if (isSelected) {
+        const innerCore = document.createElement('div');
+        innerCore.style.width = '6px';
+        innerCore.style.height = '6px';
+        innerCore.style.borderRadius = '50%';
+        innerCore.style.backgroundColor = '#ffffff';
+        innerCore.style.margin = '4px auto';
+        dot.appendChild(innerCore);
+      }
+
+      // Label Pill Tag
+      const labelTag = document.createElement('div');
+      labelTag.style.marginTop = '3px';
+      labelTag.style.padding = '1px 5px';
+      labelTag.style.borderRadius = '3px';
+      labelTag.style.fontSize = '9px';
+      labelTag.style.fontWeight = isSelected ? '700' : '600';
+      labelTag.style.backgroundColor = isSelected ? '#15803d' : 'rgba(15, 23, 42, 0.85)';
+      labelTag.style.color = isSelected ? '#ffffff' : '#e2e8f0';
+      labelTag.style.border = isSelected ? '1px solid #4ade80' : '1px solid rgba(255, 255, 255, 0.2)';
+      labelTag.style.whiteSpace = 'nowrap';
+      labelTag.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+      labelTag.innerText = isSelected ? `🟢 ${well.name}` : well.name;
+
+      container.appendChild(dot);
+      container.appendChild(labelTag);
+
+      // Event listener to activate selection
+      container.addEventListener('click', () => {
         setActiveWell(well.id);
         setSelectedObject(well.id, 'well');
       });
 
-      const popup = new Popup({ offset: 15 }).setHTML(`
-        <div style="font-family:system-ui,sans-serif;font-size:12px;color:#0f172a;min-width:200px;">
-          <div style="font-weight:700;color:#0369a1;margin-bottom:4px;">${well.name}</div>
-          <div><strong>Operator:</strong> ${well.operator}</div>
-          <div><strong>Total Depth:</strong> ${well.total_depth_m}m MD</div>
-          <div><strong>Status:</strong> ${well.status}</div>
-          <button id="btn-well-subsurface-${well.id.replace(/[^a-zA-Z0-9]/g, '')}" style="margin-top:6px;width:100%;background:#0284c7;color:#fff;border:none;padding:5px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;">
-            ENTER SUBSURFACE (3D)
-          </button>
+      // Interactive HTML Popup
+      const popupHtml = `
+        <div style="font-family:system-ui,sans-serif;font-size:12px;color:#0f172a;min-width:210px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid ${isSelected ? '#22c55e' : '#0284c7'};padding-bottom:4px;margin-bottom:6px;">
+            <span style="font-weight:700;color:${isSelected ? '#15803d' : '#0369a1'};">${well.name}</span>
+            <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:${isSelected ? '#dcfce7' : '#e0f2fe'};color:${isSelected ? '#166534' : '#0369a1'};font-weight:700;">
+              ${isSelected ? 'ACTIVE WELL' : 'OFFSET WELL'}
+            </span>
+          </div>
+          <div style="margin-bottom:3px;"><strong>Operator:</strong> ${well.operator || 'Equinor'}</div>
+          <div style="margin-bottom:3px;"><strong>Total Depth:</strong> ${well.total_depth_m}m MD</div>
+          <div style="margin-bottom:3px;"><strong>Status:</strong> ${well.status}</div>
+          <div style="margin-bottom:6px;font-size:11px;color:#64748b;"><strong>Coords:</strong> ${well.lat.toFixed(4)}°N, ${well.lon.toFixed(4)}°E</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            ${!isSelected ? `
+              <button id="btn-activate-well-${well.id.replace(/[^a-zA-Z0-9]/g, '')}" style="width:100%;background:#0284c7;color:#fff;border:none;padding:5px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;">
+                Set as Active Well (Green Dot)
+              </button>
+            ` : ''}
+            <button id="btn-well-subsurface-${well.id.replace(/[^a-zA-Z0-9]/g, '')}" style="width:100%;background:#0369a1;color:#fff;border:none;padding:5px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;">
+              ENTER SUBSURFACE (3D)
+            </button>
+          </div>
         </div>
-      `);
+      `;
+
+      const popup = new Popup({ offset: 12 }).setHTML(popupHtml);
 
       popup.on('open', () => {
-        const btn = document.getElementById(`btn-well-subsurface-${well.id.replace(/[^a-zA-Z0-9]/g, '')}`);
-        if (btn) {
-          btn.onclick = () => {
+        const btnAct = document.getElementById(`btn-activate-well-${well.id.replace(/[^a-zA-Z0-9]/g, '')}`);
+        if (btnAct) {
+          btnAct.onclick = () => {
+            setActiveWell(well.id);
+            setSelectedObject(well.id, 'well');
+          };
+        }
+
+        const btnSub = document.getElementById(`btn-well-subsurface-${well.id.replace(/[^a-zA-Z0-9]/g, '')}`);
+        if (btnSub) {
+          btnSub.onclick = () => {
             setActiveWell(well.id);
             setSelectedObject(well.id, 'well');
             if (setActiveMode) setActiveMode('SUBSURFACE');
@@ -912,8 +909,8 @@ export const MapViewer: React.FC = () => {
         }
       });
 
-      const marker = new Marker({ element: el })
-        .setLngLat([well.lon, well.lat])
+      const marker = new Marker({ element: container })
+        .setLngLat([lon, lat])
         .setPopup(popup)
         .addTo(map);
 
@@ -1093,7 +1090,38 @@ export const MapViewer: React.FC = () => {
         )}
       </div>
 
-      {/* 3. Floating Live Coordinates HUD */}
+      {/* 3. Map Legend Capsule: Active Well & Offset Wells Indicators */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '72px',
+          left: '16px',
+          zIndex: 10,
+          backgroundColor: 'rgba(15, 23, 42, 0.90)',
+          backdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+          borderRadius: '8px',
+          padding: '6px 12px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '14px',
+          fontSize: '11px',
+          color: '#f8fafc',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          pointerEvents: 'none'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#22c55e', boxShadow: '0 0 8px #22c55e', display: 'inline-block' }} />
+          <span style={{ fontWeight: '600', color: '#86efac' }}>Active Wellbore (Green Dot)</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#0284c7', boxShadow: '0 0 6px #0284c7', display: 'inline-block' }} />
+          <span style={{ fontWeight: '600', color: '#7dd3fc' }}>Offset Wells (Blue Dot)</span>
+        </div>
+      </div>
+
+      {/* 4. Floating Live Coordinates HUD */}
       {hoverCoord && (
         <div
           style={{
